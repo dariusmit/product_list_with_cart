@@ -1,7 +1,19 @@
+import ProductCard from "./components/ProductCard";
+import ShoppingCart from "./components/ShoppingCart";
+import { useState } from "react";
+
 function App() {
+  let [productData, setProductData] = useState({});
+  function getProductData(cartData: {}) {
+    setProductData(cartData);
+  }
+
   return (
     <>
-      <p className="text-red-500">Product list with cart</p>
+      <div>
+        <ProductCard passProductData={getProductData} />
+        <ShoppingCart productData={productData} />
+      </div>
     </>
   );
 }
