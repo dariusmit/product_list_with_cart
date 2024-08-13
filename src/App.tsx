@@ -1,18 +1,32 @@
+import { useState } from "react";
 import ProductCard from "./components/ProductCard";
 import ShoppingCart from "./components/ShoppingCart";
-import { useState } from "react";
+import productList from "./data/productList";
 
 function App() {
-  let [productData, setProductData] = useState({});
-  function getProductData(cartData: {}) {
-    setProductData(cartData);
-  }
+  let [newProductList, changeProductList] = useState(productList);
+
+  let [quantities, setQuantities] = useState<Record<string, number>>(() =>
+    productList.reduce(
+      (quantities, { id }) => ({
+        ...quantities,
+        [id]: 0,
+      }),
+      {}
+    )
+  );
 
   return (
     <>
       <div>
-        <ProductCard passProductData={getProductData} />
-        <ShoppingCart productData={productData} />
+        <p>Desserts</p>
+        <ProductCard
+          newProductList={newProductList}
+          changeProductList={changeProductList}
+          quantities={quantities}
+          setQuantities={setQuantities}
+        />
+        <ShoppingCart quantities={quantities} setQuantities={setQuantities} />
       </div>
     </>
   );

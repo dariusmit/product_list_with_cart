@@ -1,20 +1,18 @@
-import productList from "../data/productList";
-import { useState } from "react";
+import productTypes from "../types/productTypes";
 
 interface Props {
-  passProductData: ({}) => void;
+  newProductList: productTypes[];
+  changeProductList: React.Dispatch<React.SetStateAction<productTypes[]>>;
+  setQuantities: React.Dispatch<React.SetStateAction<Record<string, number>>>;
+  quantities: Record<string, number>;
 }
 
-function ProductCard({ passProductData }: Props) {
-  let [newProductList, changeProductList] = useState(productList);
-  let [productQuantities, setProductQuantities] = useState({
-    0: 0,
-    1: 0,
-    2: 0,
-    3: 0,
-    4: 0,
-    5: 0,
-  });
+function ProductCard({
+  newProductList,
+  changeProductList,
+  quantities,
+  setQuantities,
+}: Props) {
   function revealQuantityInput(id: number) {
     changeProductList(
       newProductList.map((product) => {
@@ -26,43 +24,28 @@ function ProductCard({ passProductData }: Props) {
   }
 
   function increaseQuantity(id: number) {
-    for (let [key, value] of Object.entries(productQuantities)) {
-      if (Number(key) === id) {
-        setProductQuantities({
-          ...productQuantities,
-          [key]: value + 1,
-        });
-      }
-    }
-    passProductData(productQuantities);
+    setQuantities((quantities) => ({
+      ...quantities,
+      [id]: quantities[id] + 1,
+    }));
   }
 
   function decreaseQuantity(id: number) {
-    for (let [key, value] of Object.entries(productQuantities)) {
-      if (Number(key) === id) {
-        setProductQuantities({
-          ...productQuantities,
-          [key]: value > 0 ? value - 1 : value,
-        });
-      }
-    }
-    passProductData(productQuantities);
+    setQuantities((quantities) => ({
+      ...quantities,
+      [id]: quantities[id] > 0 ? quantities[id] - 1 : quantities[id],
+    }));
   }
 
-  function setSpecificQuantityValue(
-    id: number,
-    name: string,
-    quantity: number
-  ) {
+  function setSpecificQuantityValue(id: number, quantity: number) {
     newProductList.map((product) => {
       if (product.id === id) {
-        return setProductQuantities({
-          ...productQuantities,
+        return setQuantities({
+          ...quantities,
           [product.id]: quantity,
         });
       }
     });
-    passProductData(productQuantities);
   }
 
   return (
@@ -79,18 +62,19 @@ function ProductCard({ passProductData }: Props) {
                 <p onClick={() => decreaseQuantity(product.id)}>-</p>
                 <input
                   type="number"
+                  placeholder={
+                    quantities[product.id] > 0
+                      ? String(quantities[product.id])
+                      : "0"
+                  }
                   id={"quantity" + product.id}
                   min="1"
                   max="9"
                   step="1"
                   onChange={(e) =>
-                    setSpecificQuantityValue(
-                      product.id,
-                      product.name,
-                      Number(e.target.value)
-                    )
+                    setSpecificQuantityValue(product.id, Number(e.target.value))
                   }
-                  className="bg-gray-300 w-[150px] opacity-100 mr-3"
+                  className="bg-gray-300 w-[150px] opacity-100 placeholder:text-black mr-3"
                 />
                 <p onClick={() => increaseQuantity(product.id)}>+</p>
               </div>
@@ -101,7 +85,6 @@ function ProductCard({ passProductData }: Props) {
           <p>{product.category}</p>
           <p>{product.name}</p>
           <p>{product.price}</p>
-          <p>QTY: {JSON.stringify(productQuantities)}</p>
         </div>
       ))}
     </>
