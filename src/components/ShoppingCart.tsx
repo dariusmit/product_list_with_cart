@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import productList from "../data/productList";
+import ConfirmOrderButton from "./ConfirmOrderButton";
 
 interface Props {
   quantities: Record<string, number>;
@@ -8,7 +9,6 @@ interface Props {
 
 function ShoppingCart({ quantities, setQuantities }: Props) {
   let [orderTotal, setOrderTotal] = useState(0);
-  let prices: Record<string, number> = {};
   useEffect(() => {
     calculateTotal();
   }, [quantities]);
@@ -34,27 +34,79 @@ function ShoppingCart({ quantities, setQuantities }: Props) {
     });
   }
 
+  function isEmpty() {
+    if (Object.values(quantities).reduce((a, b) => a + b, 0) <= 0) {
+      return true;
+    } else return false;
+  }
+
   return (
     <>
-      <h1 className="font-bold">Your cart</h1>
-      {productList.map((product) =>
-        quantities[product.id] > 0 ? (
-          <div className="mb-8" key={product.id}>
-            <p>{product.name}</p>
-            <p>{quantities[product.id]}x</p>
-            <p>{product.price} EUR</p>
-            <p>{product.price * quantities[product.id]} EUR</p>
-            <button
-              className="text-red-400"
-              onClick={() => deleteItem(product.id)}
-            >
-              Delete
-            </button>
+      <div className="mx-[6.4vw] p-[6.4vw] mb-[6.4vw] rounded-[2.13vw] bg-white">
+        <h1 className="font-bold text-[6.4vw] mb-[6.4vw] leading-[auto] text-[#C73B0F]">
+          {isEmpty() === false ? (
+            <p>
+              Your Cart ({Object.values(quantities).reduce((a, b) => a + b, 0)})
+            </p>
+          ) : (
+            <p>Your Cart</p>
+          )}
+        </h1>
+        <div className="pb-[4.27vw]">
+          {productList.map((product) =>
+            quantities[product.id] > 0 ? (
+              <div
+                className="flex justify-between mb-[8.8vw] items-center"
+                key={product.id}
+              >
+                <div className="flex flex-col">
+                  <p className="text-[#260F08] font-semibold mb-[2.13vw] text-[3.73vw] leading-[auto]">
+                    {product.name}
+                  </p>
+                  <div className="flex">
+                    <p className="text-[#C73B0F] font-semibold w-[5.6vw] mr-[2.13vw] text-[3.73vw] leading-[auto]">
+                      {quantities[product.id]}x
+                    </p>
+                    <p className="text-[#87635A] font-normal mr-[2.13vw] text-[3.73vw] leading-[auto]">
+                      @ ${(Math.round(product.price * 100) / 100).toFixed(2)}
+                    </p>
+                    <p className="text-[#87635A] font-semibold text-[3.73vw] leading-[auto]">
+                      $
+                      {(
+                        Math.round(
+                          product.price * quantities[product.id] * 100
+                        ) / 100
+                      ).toFixed(2)}
+                    </p>
+                  </div>
+                </div>
+                <img
+                  className="border-2 p-[2px] border-[#AD8A85] delete-color rounded-full w-[5.33vw] h-auto"
+                  src="../../images/icon-remove-item.svg"
+                  onClick={() => deleteItem(product.id)}
+                />
+              </div>
+            ) : null
+          )}
+        </div>
+        <div className="flex flex-col">
+          <div className="flex text-left text-[#260F08] mb-[6.4vw] items-center justify-between">
+            <p className="font-normal text-[3.73vw] leading-[auto]">
+              Order Total
+            </p>
+            <p className="font-bold leading-[auto] text-[6.4vw]">
+              ${(Math.round(orderTotal * 100) / 100).toFixed(2)}
+            </p>
           </div>
-        ) : null
-      )}
-      <p className="font-bold">Order Total</p>
-      <p>{orderTotal}</p>
+          <div className="text-[#260F08] flex justify-center p-[4.27vw] mb-[6.4vw] bg-[#FCF8F6] rounded-[2.13vw]">
+            <img src="../../images/icon-carbon-neutral.svg" />
+            <p>
+              This is <b>carbon neutral</b> delivery
+            </p>
+          </div>
+          <ConfirmOrderButton />
+        </div>
+      </div>
     </>
   );
 }

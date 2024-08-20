@@ -19,7 +19,9 @@ function App() {
   return (
     <>
       <div>
-        <p>Desserts</p>
+        <p className="mx-[6.4vw] mt-[6.4vw] mb-[8.53vw] text-[10.67vw] leading-[120%] font-bold">
+          Desserts
+        </p>
         <ProductCard
           newProductList={newProductList}
           changeProductList={changeProductList}

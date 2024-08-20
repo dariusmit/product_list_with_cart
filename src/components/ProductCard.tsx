@@ -1,4 +1,6 @@
 import productTypes from "../types/productTypes";
+import AddToCartButton from "./AddToCartButton";
+import QuantityButton from "./QuantityButton";
 
 interface Props {
   newProductList: productTypes[];
@@ -23,68 +25,43 @@ function ProductCard({
     );
   }
 
-  function increaseQuantity(id: number) {
-    setQuantities((quantities) => ({
-      ...quantities,
-      [id]: quantities[id] + 1,
-    }));
-  }
-
-  function decreaseQuantity(id: number) {
-    setQuantities((quantities) => ({
-      ...quantities,
-      [id]: quantities[id] > 0 ? quantities[id] - 1 : quantities[id],
-    }));
-  }
-
-  function setSpecificQuantityValue(id: number, quantity: number) {
-    newProductList.map((product) => {
-      if (product.id === id) {
-        return setQuantities({
-          ...quantities,
-          [product.id]: quantity,
-        });
-      }
-    });
-  }
-
   return (
     <>
       {newProductList.map((product) => (
-        <div className="p-6 mb-6 [&>*]:mb-4" key={product.id}>
-          <img src={product.image} />
+        <div className="mx-[6.4vw] mb-[6.4vw] box-border" key={product.id}>
+          <img
+            className={
+              product.quantityVisibility
+                ? "rounded-[2.13vw] border-2 border-[#C73B0F]"
+                : "rounded-[2.13vw] border-2 border-[transparent]"
+            }
+            src={product.image}
+          />
           <div
-            className="bg-green-600 p-2"
+            className="flex justify-center mb-[4.27vw] mt-[-22px]"
             onClick={() => revealQuantityInput(product.id)}
           >
             {product.quantityVisibility ? (
-              <div>
-                <p onClick={() => decreaseQuantity(product.id)}>-</p>
-                <input
-                  type="number"
-                  placeholder={
-                    quantities[product.id] > 0
-                      ? String(quantities[product.id])
-                      : "0"
-                  }
-                  id={"quantity" + product.id}
-                  min="1"
-                  max="9"
-                  step="1"
-                  onChange={(e) =>
-                    setSpecificQuantityValue(product.id, Number(e.target.value))
-                  }
-                  className="bg-gray-300 w-[150px] opacity-100 placeholder:text-black mr-3"
-                />
-                <p onClick={() => increaseQuantity(product.id)}>+</p>
-              </div>
+              <QuantityButton
+                newProductList={newProductList}
+                product_id={product.id}
+                setQuantities={setQuantities}
+                quantities={quantities}
+                changeProductList={changeProductList}
+              />
             ) : (
-              <p>Add to Cart</p>
+              <AddToCartButton />
             )}
           </div>
-          <p>{product.category}</p>
-          <p>{product.name}</p>
-          <p>{product.price}</p>
+          <p className="text-[#87635A] text-[3.73vw] font-normal mb-[1.07vw] leading-[auto]">
+            {product.category}
+          </p>
+          <p className="text-[#260F08] font-semibold leading-[auto] mb-[1.07vw] text-[4.27vw]">
+            {product.name}
+          </p>
+          <p className="text-[#C73B0F] font-semibold leading-[auto] text-[4.27vw]">
+            ${(Math.round(product.price * 100) / 100).toFixed(2)}
+          </p>
         </div>
       ))}
     </>
