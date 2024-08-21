@@ -28,7 +28,12 @@ function App() {
           quantities={quantities}
           setQuantities={setQuantities}
         />
-        <ShoppingCart quantities={quantities} setQuantities={setQuantities} />
+        <ShoppingCart
+          quantities={quantities}
+          setQuantities={setQuantities}
+          newProductList={newProductList}
+          changeProductList={changeProductList}
+        />
       </div>
     </>
   );

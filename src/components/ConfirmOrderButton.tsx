@@ -1,10 +1,46 @@
-function ConfirmOrderButton() {
+import OrderConfirmedModal from "./OrderConfirmedModal";
+import { useState } from "react";
+import productTypes from "../types/productTypes";
+
+interface Props {
+  quantities: Record<string, number>;
+  setQuantities: React.Dispatch<React.SetStateAction<Record<string, number>>>;
+  orderTotal: number;
+  newProductList: productTypes[];
+  changeProductList: React.Dispatch<React.SetStateAction<productTypes[]>>;
+}
+
+function ConfirmOrderButton({
+  quantities,
+  setQuantities,
+  orderTotal,
+  newProductList,
+  changeProductList,
+}: Props) {
+  let [confimationModal, enableConfirmationModal] = useState(false);
+
   return (
-    <button className="px-[3.2vw] flex w-[74.4vw] h-[14.13vw] justify-center items-center text-white rounded-full bg-[#C73B0F]">
-      <p className="text-[4.27vw] font-semibold leading-[auto]">
-        Confirm Order
-      </p>
-    </button>
+    <>
+      <button
+        className="px-[3.2vw] flex w-[74.4vw] h-[14.13vw] justify-center hover:bg-[#8A290A] items-center text-white rounded-full bg-[#C73B0F]"
+        onClick={() => enableConfirmationModal(true)}
+      >
+        <p className="text-[4.27vw] font-semibold leading-[auto]">
+          Confirm Order
+        </p>
+      </button>
+      <div>
+        {confimationModal ? (
+          <OrderConfirmedModal
+            quantities={quantities}
+            setQuantities={setQuantities}
+            orderTotal={orderTotal}
+            newProductList={newProductList}
+            changeProductList={changeProductList}
+          />
+        ) : null}
+      </div>
+    </>
   );
 }
 
