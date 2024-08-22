@@ -9,7 +9,7 @@ interface Props {
   quantities: Record<string, number>;
 }
 
-function ProductCard({
+function ProductList({
   newProductList,
   changeProductList,
   quantities,
@@ -88,4 +88,4 @@ function ProductCard({
   );
 }
 
-export default ProductCard;
+export default ProductList;

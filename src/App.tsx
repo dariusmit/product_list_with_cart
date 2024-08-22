@@ -1,5 +1,5 @@
 import { useState } from "react";
-import ProductCard from "./components/ProductCard";
+import ProductList from "./components/ProductList";
 import ShoppingCart from "./components/ShoppingCart";
 import productList from "./data/productList";
 
@@ -24,7 +24,7 @@ function App() {
       >
         Desserts
       </p>
-      <ProductCard
+      <ProductList
         newProductList={newProductList}
         changeProductList={changeProductList}
         quantities={quantities}
