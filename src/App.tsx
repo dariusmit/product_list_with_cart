@@ -18,23 +18,24 @@ function App() {
 
   return (
     <>
-      <div>
-        <p className="mx-[6.4vw] mt-[6.4vw] mb-[8.53vw] text-[10.67vw] leading-[120%] font-bold">
-          Desserts
-        </p>
-        <ProductCard
-          newProductList={newProductList}
-          changeProductList={changeProductList}
-          quantities={quantities}
-          setQuantities={setQuantities}
-        />
-        <ShoppingCart
-          quantities={quantities}
-          setQuantities={setQuantities}
-          newProductList={newProductList}
-          changeProductList={changeProductList}
-        />
-      </div>
+      <p
+        className="mx-[6.4vw] mt-[6.4vw] mb-[8.53vw] text-[10.67vw] leading-[120%] font-bold
+        tablet:mx-[5.21vw] tablet:mt-[5.21vw] tablet:mb-[4.17vw] tablet:text-[5.21vw]"
+      >
+        Desserts
+      </p>
+      <ProductCard
+        newProductList={newProductList}
+        changeProductList={changeProductList}
+        quantities={quantities}
+        setQuantities={setQuantities}
+      />
+      <ShoppingCart
+        quantities={quantities}
+        setQuantities={setQuantities}
+        newProductList={newProductList}
+        changeProductList={changeProductList}
+      />
     </>
   );
 }
