@@ -24,3 +24,9 @@ body {
         max-height: 89.19vw;
     }
 }
+
+@media only screen and (min-width: 1440px) {
+    .modal {
+        max-height: 47.57vw;
+    }
+}

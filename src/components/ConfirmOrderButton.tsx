@@ -23,10 +23,10 @@ function ConfirmOrderButton({
     <>
       <button
         className="flex w-[74.4vw] h-[14.13vw] justify-center hover:bg-[#8A290A] items-center text-white rounded-full bg-[#C73B0F]
-        tablet:w-full tablet:h-[6.9vw] "
+        tablet:w-full tablet:h-[6.9vw] desktop:h-[3.68vw]"
         onClick={() => enableConfirmationModal(true)}
       >
-        <p className="text-[4.27vw] font-semibold leading-[auto] tablet:text-[2.08vw]">
+        <p className="text-[4.27vw] font-semibold leading-[auto] tablet:text-[2.08vw] desktop:text-[1.11vw]">
           Confirm Order
         </p>
       </button>

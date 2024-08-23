@@ -9,7 +9,6 @@ interface Props {
 }
 
 function NewOrderButton({
-  quantities,
   setQuantities,
   newProductList,
   changeProductList,
@@ -35,10 +34,10 @@ function NewOrderButton({
     <>
       <button
         className="px-[3.2vw] flex w-full py-[4.27vw] hover:bg-[#8A290A] justify-center items-center text-white rounded-full bg-[#C73B0F]
-        tablet:px-0 tablet:py-[2.08vw]"
+        tablet:px-0 tablet:py-[2.08vw] desktop:py-[1.11vw]"
         onClick={resetValues}
       >
-        <p className="text-[4.27vw] font-semibold leading-[auto] tablet:text-[2.08vw]">
+        <p className="text-[4.27vw] font-semibold leading-[auto] tablet:text-[2.08vw] desktop:text-[1.11vw]">
           Start New Order
         </p>
       </button>

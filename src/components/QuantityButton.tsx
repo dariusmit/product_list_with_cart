@@ -48,12 +48,12 @@ function QuantityButton({
 
   return (
     <button
-      className="px-[3.2vw] flex w-[42.67vw] h-[11.73vw] justify-between items-center text-white rounded-full bg-[#C73B0F] tablet:w-[20.83vw] tablet:h-[5.73vw]
-    tablet:px-[1.56vw]"
+      className="px-[3.2vw] flex w-[42.67vw] h-[11.73vw] pointer-events-none justify-between items-center text-white rounded-full bg-[#C73B0F] tablet:w-[20.83vw] tablet:h-[5.73vw]
+    tablet:px-[1.56vw] desktop:w-[11.11vw] desktop:h-[3.06vw] desktop:px-[0.83vw]"
     >
       <div
         onClick={() => decreaseQuantity(product_id)}
-        className="flex items-center justify-center border w-[5.33vw] h-[5.33vw] rounded-full tablet:w-[2.6vw] tablet:h-[2.6vw]"
+        className="flex items-center pointer-events-auto justify-center border w-[5.33vw] h-[5.33vw] rounded-full tablet:w-[2.6vw] tablet:h-[2.6vw] desktop:w-[1.39vw] desktop:h-[1.39vw]"
       >
         <img src="../../images/icon-decrement-quantity.svg" />
       </div>
@@ -62,7 +62,7 @@ function QuantityButton({
       </p>
       <div
         onClick={() => increaseQuantity(product_id)}
-        className="flex items-center justify-center border w-[5.33vw] h-[5.33vw] rounded-full tablet:w-[2.6vw] tablet:h-[2.6vw]"
+        className="flex items-center pointer-events-auto justify-center border w-[5.33vw] h-[5.33vw] rounded-full tablet:w-[2.6vw] tablet:h-[2.6vw] desktop:w-[1.39vw] desktop:h-[1.39vw]"
       >
         <img src="../../images/icon-increment-quantity.svg" />
       </div>
