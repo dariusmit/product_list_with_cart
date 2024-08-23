@@ -29,7 +29,7 @@ function ProductList({
     <>
       <div
         className="mx-[6.4vw] 
-          tablet:flex tablet:flex-wrap tablet:mx-[3.65vw] tablet:w-full tablet:h-auto"
+          tablet:flex tablet:flex-wrap tablet:mx-[3.65vw] tablet:w-auto tablet:h-auto"
       >
         {newProductList.map((product) => (
           <div

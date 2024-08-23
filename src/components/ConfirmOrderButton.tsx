@@ -30,17 +30,16 @@ function ConfirmOrderButton({
           Confirm Order
         </p>
       </button>
-      <div>
-        {confimationModal ? (
-          <OrderConfirmedModal
-            quantities={quantities}
-            setQuantities={setQuantities}
-            orderTotal={orderTotal}
-            newProductList={newProductList}
-            changeProductList={changeProductList}
-          />
-        ) : null}
-      </div>
+
+      {confimationModal ? (
+        <OrderConfirmedModal
+          quantities={quantities}
+          setQuantities={setQuantities}
+          orderTotal={orderTotal}
+          newProductList={newProductList}
+          changeProductList={changeProductList}
+        />
+      ) : null}
     </>
   );
 }

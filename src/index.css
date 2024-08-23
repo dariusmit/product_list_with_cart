@@ -17,3 +17,10 @@ body {
     transform: translate(-50%, 0%);
     max-height: calc(100% - 50px);
 }
+
+@media only screen and (min-width: 768px) {
+    .modal {
+        transform: translate(-50%, -50%);
+        max-height: 89.19vw;
+    }
+}
